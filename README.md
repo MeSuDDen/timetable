@@ -8,6 +8,8 @@
    - **pip install flask_sqlalchemy**
    - **pip install flask_wtf**
 5. Запустить проект - **flask run --debug**
+6. Возможно надо будет установить Tailwind (**npm install -D tailwindcss** + **npx tailwindcss init** + **npm install flowbite**) 
+7. Для установки библиотек из пункта 6 нужно иметь на ПК скаченную nodejs (Первая ссылка в инете)
 
 
 >Пояснение
