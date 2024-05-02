@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Страница регистрации
+{% endblock %}
+
+{% block content %}
+<section class="bg-gray-50 dark:bg-gray-900 h-screen">
+    <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-8 lg:px-6">
+
+        <h1 class="text-center font-extrabold lg:text-4xl text-primary-600 dark:text-white">Панель администратора</h1>
+
+        <div class="mx-auto max-w-screen-sm text-center mt-[50px] flex gap-2 flex-col">
+            <!-- Форма для создания курса -->
+            <form class="w-full flex flex-col p-6 mx-auto max-w-lg text-center text-gray-900 bg-white rounded-lg border border-gray-100 shadow dark:border-gray-600 xl:p-8 dark:bg-gray-800 dark:text-white" action="{{ url_for('create_course') }}" method="post">
+                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="course_name">Название курса:</label>
+                <input class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" type="text" id="course_name" name="course_name" required>
+                <button class="mt-4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="submit">Создать курс</button>
+            </form>
+
+            <!-- Форма для создания группы -->
+            <form class="w-full flex flex-col p-6 mx-auto max-w-lg text-center text-gray-900 bg-white rounded-lg border border-gray-100 shadow dark:border-gray-600 xl:p-8 dark:bg-gray-800 dark:text-white" action="{{ url_for('create_group') }}" method="post">
+                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="group_name">Название группы:</label>
+                <input class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" type="text" id="group_name" name="group_name" required>
+                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="course_select">Выберите курс:</label>
+                <select class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" id="course_select" name="course_id">
+                    {% for course in courses %}
+                    <option value="{{ course.id }}">{{ course.name }}</option>
+                    {% endfor %}
+                </select>
+                <button class="mt-4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="submit">Создать группу</button>
+            </form>
+
+            <!-- Форма для загрузки изображения -->
+            <form class="w-full flex flex-col p-6 mx-auto max-w-lg text-center text-gray-900 bg-white rounded-lg border border-gray-100 shadow dark:border-gray-600 xl:p-8 dark:bg-gray-800 dark:text-white" action="{{ url_for('upload_timetable') }}" method="post" enctype="multipart/form-data">
+                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="image_file">Загрузить изображение расписания:</label>
+                <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" type="file" id="image_file" name="file" accept="image/*" required>
+
+                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="course_detect">Выберите курс:</label>
+                <select class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" id="course_detect" name="course_id">
+                    {% for course in courses %}
+                    <option class="text-gray-500" value="{{ course.id }}">{{ course.name }}</option>
+                    {% endfor %}
+                </select>
+
+                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="group_detect">Выберите группу:</label>
+                <select class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" id="group_detect" name="group_id">
+                    <!-- Options will be loaded dynamically via JavaScript -->
+                </select>
+
+                <button class="mt-4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="submit">Загрузить</button>
+            </form>
+        </div>
+    </div>
+</section>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const courseSelect = document.getElementById('course_detect');
+        const groupSelect = document.getElementById('group_detect');
+
+        // Функция для загрузки списка групп для выбранного курса
+        function loadGroupsForSelectedCourse() {
+            const selectedCourseId = courseSelect.value;
+
+            // Очищаем список групп
+            groupSelect.innerHTML = '';
+
+            // Загружаем список групп для выбранного курса
+            fetch(`/get_groups?course_id=${selectedCourseId}`)
+                .then(response => response.json())
+                .then(groups => {
+                    groups.forEach(group => {
+                        const option = document.createElement('option');
+                        option.value = group.id;
+                        option.textContent = group.name;
+                        groupSelect.appendChild(option);
+                    });
+                })
+                .catch(error => console.error('Error fetching groups:', error));
+        }
+
+        // Вызываем функцию загрузки групп при загрузке страницы
+        loadGroupsForSelectedCourse();
+
+        // Обработчик события изменения значения курса
+        courseSelect.addEventListener('change', function() {
+            // Вызываем функцию загрузки групп при изменении курса
+            loadGroupsForSelectedCourse();
+        });
+    });
+</script>
+
+
+{% endblock %}
